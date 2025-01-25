@@ -24,28 +24,12 @@
     }
   </style>
 </head>
+
 <body>
   <h1>Twitter Bot Controller</h1>
   <button id="runBot">Run Bot</button>
   <p id="status"></p>
 
-  <script>
-    document.getElementById('runBot').addEventListener('click', async () => {
-      document.getElementById('status').textContent = 'Running bot...';
-
-      try {
-        const response = await fetch('/api/run-bot', { method: 'POST' });
-        const data = await response.json();
-
-        if (response.ok) {
-          document.getElementById('status').textContent = data.message;
-        } else {
-          document.getElementById('status').textContent = 'Error: ' + (data.error || 'Unknown error');
-        }
-      } catch (error) {
-        document.getElementById('status').textContent = 'Failed to reach server';
-      }
-    });
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
