@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       await client.v2.retweet(process.env.USER_ID, latestTweet.id);
       await client.v2.reply(COMMENT_TEXT, latestTweet.id);
 
-      // Send response
+      // Send a JSON response with success
       res.status(200).json({ message: 'Successfully interacted with the tweet!' });
     } catch (error) {
       console.error('Error:', error);

@@ -14,8 +14,16 @@
       document.getElementById('runBotButton').addEventListener('click', async () => {
         try {
           const response = await fetch('/api/bot', { method: 'POST' });
-          const data = await response.json();
-          alert('Bot completed: ' + data.message);
+
+          // Check if the response is successful (status 200)
+          if (response.ok) {
+            const data = await response.json();
+            alert('Bot completed: ' + data.message);
+          } else {
+            // If not, throw an error
+            const errorData = await response.json();
+            alert('Error: ' + errorData.error);
+          }
         } catch (error) {
           alert('Error running bot: ' + error.message);
         }
