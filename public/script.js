@@ -3,7 +3,7 @@ document.getElementById('runBot').addEventListener('click', async () => {
     status.textContent = 'Running bot...';
   
     try {
-      const response = await fetch('/api/bot', { method: 'POST' });
+      const response = await fetch('https://xbot-theta.vercel.app/api/bot', { method: 'POST' });
       const data = await response.json();
   
       if (response.ok) {
