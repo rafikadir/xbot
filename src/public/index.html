@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Twitter Bot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1da1f2;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0d8fe6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Twitter Bot Controller</h1>
+  <button id="runBot">Run Bot</button>
+  <p id="status"></p>
+
+  <script>
+    document.getElementById('runBot').addEventListener('click', async () => {
+      document.getElementById('status').textContent = 'Running bot...';
+
+      try {
+        const response = await fetch('/api/run-bot', { method: 'POST' });
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById('status').textContent = data.message;
+        } else {
+          document.getElementById('status').textContent = 'Error: ' + (data.error || 'Unknown error');
+        }
+      } catch (error) {
+        document.getElementById('status').textContent = 'Failed to reach server';
+      }
+    });
+  </script>
+</body>
+</html>
