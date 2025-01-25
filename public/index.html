@@ -13,7 +13,7 @@
     <script>
       document.getElementById('runBotButton').addEventListener('click', async () => {
         try {
-          const response = await fetch('/api/bot', { method: 'POST' });
+          const response = await fetch('https://xbot-theta.vercel.app/api/bot', { method: 'POST' });
 
           // Check if the response is successful (status 200)
           if (response.ok) {
