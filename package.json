@@ -1,0 +1,15 @@
+{
+  "name": "twitter-bot",
+  "version": "1.0.0",
+  "description": "A simple Twitter bot that interacts with the Twitter API.",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "twitter-api-v2": "^1.19.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
