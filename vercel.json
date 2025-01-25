@@ -1,7 +1,19 @@
 {
-    "rewrites": [
-      { "source": "/api/:path*", "destination": "/api/:path*" },
-      { "source": "/:path*", "destination": "/public/index.html" }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "pages/api/bot.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/public/index.html"
+    }
+  ]
+}

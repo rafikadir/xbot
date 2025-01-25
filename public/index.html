@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Run Twitter Bot</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1da1f2;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0d8fe6;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter Bot</title>
+  </head>
+  <body>
+    <h1>Twitter Bot</h1>
+    <p>Click the button below to make the bot interact with the latest tweet of the target account!</p>
+    <button id="runBotButton">Run Bot</button>
 
-<body>
-  <h1>Twitter Bot Controller</h1>
-  <button id="runBot">Run Bot</button>
-  <p id="status"></p>
-
-  <script src="./script.js"></script>
-</body>
+    <script>
+      document.getElementById('runBotButton').addEventListener('click', async () => {
+        try {
+          const response = await fetch('/api/bot', { method: 'POST' });
+          const data = await response.json();
+          alert('Bot completed: ' + data.message);
+        } catch (error) {
+          alert('Error running bot: ' + error.message);
+        }
+      });
+    </script>
+  </body>
 </html>
