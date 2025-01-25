@@ -7,8 +7,7 @@ const client = new TwitterApi({
   accessSecret: process.env.ACCESS_SECRET,
 });
 
-const TARGET_ACCOUNT = 'i_am_rafikadir';
-const COMMENT_TEXT = 'Awesome tweet! 🚀';
+const TARGET_ACCOUNT = 'i_am_rafikadir';  // Replace with the target username
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -16,18 +15,26 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Fetch the user ID of the target account
     const user = await client.v2.userByUsername(TARGET_ACCOUNT);
-    const tweets = await client.v2.userTimeline(user.data.id, { max_results: 1 });
+    const userId = user.data.id;
 
-    for (const tweet of tweets.data) {
-      await client.v2.like(process.env.USER_ID, tweet.id);
-      await client.v2.retweet(process.env.USER_ID, tweet.id);
-      await client.v2.reply(COMMENT_TEXT, tweet.id);
+    // Get the latest tweet from the target account
+    const tweet = await client.v2.userTimeline(userId, { max_results: 1 });
+
+    if (tweet.data && tweet.data.length > 0) {
+      const latestTweet = tweet.data[0];
+
+      // Like the tweet (this is how you "bookmark" a tweet for now)
+      await client.v2.like(process.env.USER_ID, latestTweet.id);
+      console.log(`Bookmarked tweet: ${latestTweet.id}`);
+
+      res.status(200).json({ message: 'Successfully bookmarked the tweet!' });
+    } else {
+      res.status(404).json({ error: 'No tweets found.' });
     }
-
-    res.status(200).json({ message: 'Bot ran successfully!' });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to run bot' });
+    console.error('Error running bot:', error);
+    res.status(500).json({ error: 'Failed to bookmark tweet.' });
   }
 };
